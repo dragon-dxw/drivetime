@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "drivetime"
+version = "0.0.1"
+description = "Check what files I have access to on Google Drive"
+authors = ["dragon@dxw.com"]
+maintainers = ["dragon@dxw.com"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+google-drive-to-sqlite = "^0.4"
+
+[tool.poetry.dev-dependencies]
+coverage = "*"
+
+[build-system]
+requires = ["poetry>=1.0.0"]
+build-backend = "poetry.masonry.api"

@@ -80,6 +80,18 @@ def get_permission_data(files):
                         fileId=file.id,
                         **permission)
 
+def create_view():
+  # very optional
+  cur.execute("DROP VIEW summary")
+  cur.execute("""CREATE VIEW summary AS
+  SELECT webViewLink, drive_files.name as filename, displayName, emailAddress FROM
+  drive_users LEFT JOIN drive_permissions ON drive_users.permissionId=drive_permissions.id
+              LEFT JOIN drive_files ON drive_permissions.fileID=drive_files.id
+  WHERE emailAddress NOT LIKE "%dxw.com"
+  GROUP BY name, displayName
+  """)
+
+create_view()
 reset_permissions_table()
 get_permission_data(files)
 

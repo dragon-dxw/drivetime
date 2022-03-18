@@ -66,17 +66,21 @@ def save_permission(**kwargs):
                  (id, type, kind, role, fileId)
                  VALUES
                  (:_id, :_type, :kind, :role, :fileId)
-                 """, kwargs) # ON CONFLICT (id, fileId) DO NOTHING
-  cur.execute("COMMIT")
+                 """, kwargs)
+
+def get_permission_data(files):
+  for file in files:
+    permissions = get_permission_list(client, file.id)
+    if 'error' in permissions:
+      print (permissions, file)  # weird?!? -- some of the files aren't accessible to me? But I just got them...
+    else:
+      for permission in permissions['permissions']:
+        save_permission(_id=permission['id'],
+                        _type=permission['type'],
+                        fileId=file.id,
+                        **permission)
 
 reset_permissions_table()
-for file in files:
-  permissions = get_permission_list(client, file.id)
-  if 'error' in permissions:
-    print (permissions, file)  # weird?!? -- some of the files aren't accessible to me? But I just got them...
-  else:
-    for permission in permissions['permissions']:
-      save_permission(_id=permission['id'],
-                      _type=permission['type'],
-                      fileId=file.id,
-                      **permission)
+get_permission_data(files)
+
+cur.execute("COMMIT")

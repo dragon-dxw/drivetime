@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "drivetime"
-version = "0.0.1"
+version = "0.0.2"
 description = "Check what files I have access to on Google Drive"
 authors = ["dragon@dxw.com"]
 maintainers = ["dragon@dxw.com"]

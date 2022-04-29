@@ -88,7 +88,7 @@ def create_view():
   drive_users LEFT JOIN drive_permissions ON drive_users.permissionId=drive_permissions.id
               LEFT JOIN drive_files ON drive_permissions.fileID=drive_files.id
               LEFT JOIN drive_users AS file_owners ON drive_files._owner=file_owners.permissionId
-  WHERE drive_users.emailAddress NOT LIKE "%dxw.com"
+  WHERE drive_users.emailAddress NOT LIKE "%dxw.com" AND file_owners.emailAddress LIKE "%dxw.com"
   GROUP BY name, drive_users.displayName
   """)
 

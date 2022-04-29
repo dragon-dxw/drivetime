@@ -82,7 +82,7 @@ def get_permission_data(files):
 
 def create_view():
   # very optional
-  cur.execute("DROP VIEW summary")
+  cur.execute("DROP VIEW IF EXISTS summary")
   cur.execute("""CREATE VIEW summary AS
   SELECT webViewLink, drive_files.name as filename, displayName, emailAddress FROM
   drive_users LEFT JOIN drive_permissions ON drive_users.permissionId=drive_permissions.id

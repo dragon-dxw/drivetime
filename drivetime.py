@@ -87,13 +87,12 @@ def create_view():
   SELECT webViewLink, drive_files.name as filename, drive_users.displayName as reader_name, drive_users.emailAddress as reader_email, file_owners.displayName as author_name, file_owners.emailAddress as author_email FROM
   drive_users LEFT JOIN drive_permissions ON drive_users.permissionId=drive_permissions.id
               LEFT JOIN drive_files ON drive_permissions.fileID=drive_files.id
-              LEFT JOIN drive_users AS file_owners ON drive_files._owner=drive_users.permissionId
+              LEFT JOIN drive_users AS file_owners ON drive_files._owner=file_owners.permissionId
   WHERE drive_users.emailAddress NOT LIKE "%dxw.com"
   GROUP BY name, drive_users.displayName
   """)
 
 create_view()
-exit()
 reset_permissions_table()
 get_permission_data(files)
 
